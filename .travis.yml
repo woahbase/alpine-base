@@ -1,0 +1,13 @@
+sudo: required
+
+services:
+  - docker
+
+before_script:
+  - docker --version
+  - make --version
+
+script: 
+  - make build
+
+
