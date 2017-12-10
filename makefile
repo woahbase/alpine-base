@@ -17,7 +17,7 @@ BUILDFLAGS := --rm --force-rm -t $(IMAGETAG)
 CACHEFLAGS := --no-cache=true --pull
 MOUNTFLAGS := #
 NAMEFLAGS  := --name docker_$(SVCNAME) --hostname $(SVCNAME)
-OTHERFLAGS := -v /etc/hosts:/etc/hosts:ro -v /etc/localtime:/etc/localtime:ro -e TZ=Asia/Kolkata
+OTHERFLAGS := # -v /etc/hosts:/etc/hosts:ro -v /etc/localtime:/etc/localtime:ro -e TZ=Asia/Kolkata
 PORTFLAGS  := #
 PROXYFLAGS := --build-arg http_proxy=$(http_proxy) --build-arg https_proxy=$(https_proxy) --build-arg no_proxy=$(no_proxy)
 
@@ -64,7 +64,7 @@ stop :
 	docker stop -t 2 docker_$(SVCNAME)
 
 test :
-	docker run --rm -it $(NAMEFLAGS) $(RUNFLAGS) $(PORTFLAGS) $(MOUNTFLAGS) $(OTHERFLAGS) $(IMAGETAG) uname -a
+	docker run --rm -it $(NAMEFLAGS) $(RUNFLAGS) $(PORTFLAGS) $(MOUNTFLAGS) $(OTHERFLAGS) -u root $(IMAGETAG) uname -a
 
 # -- }}}
 
