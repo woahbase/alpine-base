@@ -13,7 +13,7 @@ IMAGETAG  := $(USERNAME)/$(OPSYS)-$(SVCNAME):$(ARCH)
 
 # {{{ -- flags
 
-BUILDFLAGS := --rm --force-rm -t $(IMAGETAG)
+BUILDFLAGS := --rm --force-rm -t $(IMAGETAG) --build-arg VCS_REF=$(shell git rev-parse --short HEAD) --build-arg BUILD_DATE=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
 CACHEFLAGS := --no-cache=true --pull
 MOUNTFLAGS := #
 NAMEFLAGS  := --name docker_$(SVCNAME) --hostname $(SVCNAME)
