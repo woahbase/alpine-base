@@ -64,8 +64,7 @@ stop :
 	docker stop -t 2 docker_$(SVCNAME)
 
 test :
-	# docker run --rm -it $(NAMEFLAGS) $(RUNFLAGS) $(PORTFLAGS) $(MOUNTFLAGS) $(OTHERFLAGS) $(IMAGETAG) uname -a
-	true;
+	docker run --rm -it $(NAMEFLAGS) $(RUNFLAGS) $(PORTFLAGS) $(MOUNTFLAGS) $(OTHERFLAGS) $(IMAGETAG) "id"
 
 # -- }}}
 
