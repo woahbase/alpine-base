@@ -21,7 +21,7 @@ OTHERFLAGS := -v /etc/hosts:/etc/hosts:ro -v /etc/localtime:/etc/localtime:ro -e
 PORTFLAGS  := #
 PROXYFLAGS := --build-arg http_proxy=$(http_proxy) --build-arg https_proxy=$(https_proxy) --build-arg no_proxy=$(no_proxy)
 
-RUNFLAGS   := -e PGID=$(shell id -g) -e PUID=$(shell id -u) -c 64 -m 32m#
+RUNFLAGS   := -c 64 -m 32m # -e PGID=$(shell id -g) -e PUID=$(shell id -u)
 
 # -- }}}
 
