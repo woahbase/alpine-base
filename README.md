@@ -1,5 +1,14 @@
+[![Build Status](https://travis-ci.org/woahbase/alpine-base.svg?branch=master)](https://travis-ci.org/woahbase/alpine-base)
+
+[![](https://images.microbadger.com/badges/image/woahbase/alpine-base.svg)](https://microbadger.com/images/woahbase/alpine-base)
+
+[![](https://images.microbadger.com/badges/commit/woahbase/alpine-base.svg)](https://microbadger.com/images/woahbase/alpine-base)
+
+[![](https://images.microbadger.com/badges/version/woahbase/alpine-base.svg)](https://microbadger.com/images/woahbase/alpine-base)
+
 ## Alpine-Base
 #### Container for Alpine Linux Base Builds
+
 ---
 
 This [image][5] serves as the base rootfs container for [Alpine Linux][8].
@@ -105,8 +114,7 @@ docker push woahbase/alpine-base:x86_64
 ## Maintenance
 ---
 
-Currently built daily on a RaspberryPi3 (armhf builds) or IntelNUC
-(x64 builds). Docker hub builds maintained by [woahbase][4].
+Built daily at Travis.CI (armhf / x64 builds). Docker hub builds maintained by [woahbase][4].
 
 [1]: https://git-scm.com
 [2]: https://www.gnu.org/software/make/
