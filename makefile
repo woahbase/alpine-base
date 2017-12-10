@@ -32,6 +32,10 @@ all : run
 build : fetch
 	docker build $(BUILDFLAGS) $(CACHEFLAGS) $(PROXYFLAGS) .
 
+clean :
+	rm -rf $(CURDIR)/data
+	docker rmi $(IMAGETAG)
+
 logs :
 	docker logs -f docker_$(SVCNAME)
 
@@ -58,6 +62,9 @@ shell :
 
 stop :
 	docker stop -t 2 docker_$(SVCNAME)
+
+test :
+	docker run --rm -it $(NAMEFLAGS) $(RUNFLAGS) $(PORTFLAGS) $(MOUNTFLAGS) $(OTHERFLAGS) $(IMAGETAG) uname -a
 
 # -- }}}
 
