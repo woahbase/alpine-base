@@ -89,7 +89,8 @@ fetch :
 fetchqemu :
 	mkdir -p data \
 	&& QEMUARCH="$$(echo $(ARCH) | sed 's_armhf_arm_')" \
-	&& QEMUVERS="$$(curl -SL https://api.github.com/repos/multiarch/qemu-user-static/releases/latest | awk '/tag_name/{print $4;exit}' FS='[""]')" \
+	&& QEMUVERS="$$(curl -SL https://api.github.com/repos/multiarch/qemu-user-static/releases/latest | awk '/tag_name/{print $$4;exit}' FS='[""]')" \
+	&& echo "Using qemu-user-static version: "$${QEMUVERS} \
 	&& curl \
 		-o ./data/$(HOSTARCH)_qemu-$${QEMUARCH}-static.tar.gz -SL https://github.com/multiarch/qemu-user-static/releases/download/$${QEMUVERS}/$(HOSTARCH)_qemu-$${QEMUARCH}-static.tar.gz \
 		&& tar xv -C data/ -f ./data/$(HOSTARCH)_qemu-$${QEMUARCH}-static.tar.gz;
