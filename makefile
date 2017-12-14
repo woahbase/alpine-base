@@ -37,7 +37,7 @@ all : run
 
 build : fetch
 	echo "Building for $(ARCH) from $(HOSTARCH)";
-	[[ "$(ARCH)" = "armhf" ]] && (make regbinfmt fetchqemu) || true;
+	if [ "$(ARCH)" = "armhf" ]; then make regbinfmt fetchqemu; fi;
 	docker build $(BUILDFLAGS) $(CACHEFLAGS) $(PROXYFLAGS) .
 
 clean :
