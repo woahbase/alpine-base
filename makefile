@@ -72,7 +72,7 @@ stop :
 	docker stop -t 2 docker_$(SVCNAME)
 
 test :
-	docker run --rm -it $(NAMEFLAGS) $(RUNFLAGS) $(PORTFLAGS) $(MOUNTFLAGS) $(OTHERFLAGS) $(IMAGETAG) -ec "uname -a;"
+	docker run --rm -it $(NAMEFLAGS) $(RUNFLAGS) $(PORTFLAGS) $(MOUNTFLAGS) $(OTHERFLAGS) $(IMAGETAG) bash --version
 
 # -- }}}
 
