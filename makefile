@@ -1,6 +1,6 @@
 # {{{ -- meta
 
-HOSTARCH  := x86_64#
+HOSTARCH  := $(shell uname -m | sed "s_armv7l_armhf_")#
 QEMUVERS  := v2.9.1-1#
 ARCH      := x86_64# $(shell uname -m | sed "s_armv7l_armhf_")# armhf/x86_64 auto-detect on build
 OPSYS     := alpine
@@ -36,6 +36,7 @@ RUNFLAGS   := -c 64 -m 32m # -e PGID=$(shell id -g) -e PUID=$(shell id -u)
 all : run
 
 build : fetch
+	echo "Building for $(ARCH) from $(HOSTARCH)";
 	[[ $(ARCH) = "armhf" ]] && (make regbinfmt fetchqemu) || true;
 	docker build $(BUILDFLAGS) $(CACHEFLAGS) $(PROXYFLAGS) .
 
