@@ -51,7 +51,7 @@ pull :
 	docker pull $(IMAGETAG)
 
 push :
-	docker push $(DOCKEREPO)
+	docker push $(IMAGETAG)
 
 restart :
 	docker ps -a | grep 'docker_$(SVCNAME)' -q && docker restart docker_$(SVCNAME) || echo "Service not running.";
