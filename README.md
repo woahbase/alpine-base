@@ -18,6 +18,10 @@ The image is tagged respectively for 2 architectures,
 * **armhf**
 * **x86_64**
 
+**armhf** builds have embedded binfmt_misc support and contain the
+[qemu-user-static][7] binary that allows for running it also inside
+an x64 environment that has it.
+
 ---
 #### Get the Image
 ---
@@ -34,6 +38,18 @@ docker pull woahbase/alpine-base:x86_64
 ---
 #### Run
 ---
+
+If you want to run images for other architectures, you will need
+to have binfmt support configured for your machine. [**multiarch**][6],
+has made it easy for us containing that into a docker container.
+
+```
+# make regbinfmt
+docker run --rm --privileged multiarch/qemu-user-static:register --reset
+
+```
+Without the above, you can still run the image that is made for your
+architecture, e.g for an x86_64 machine..
 
 ```
 # make
@@ -84,8 +100,8 @@ Before you clone the repo, you must have [Git][1], [GNU make][2],
 and [Docker][3] setup on the machine.
 
 ```
-git clone <repository url>
-cd <repository>
+git clone https://github.com/woahbase/alpine-base
+cd alpine-base
 
 ```
 You can always skip installing **make** but you will have to
@@ -96,16 +112,26 @@ make targets.
 #### Build
 ---
 
-To locally build the image for your system.
+You need to have binfmt_misc configured in your system to be able
+to build images for other architectures.
+
+Otherwise to locally build the image for your system.
 
 ```
-# make build
-# fetches latest minirootfs
+# make ARCH=x86_64 build
+# fetches minirootfs inside ./data/
+# sets up binfmt if not x86_64
 docker build --rm --force-rm \
   -t woahbase/alpine-base:x86_64 \
   --no-cache=true .
 
-# make push
+# make ARCH=x86_64 test
+docker run --rm -it \
+  --name docker_base --hostname base \
+  woahbase/alpine-base:x86_64 \
+  bash --version
+
+# make ARCH=x86_64 push
 docker push woahbase/alpine-base:x86_64
 
 ```
@@ -122,5 +148,7 @@ Built daily at Travis.CI (armhf / x64 builds). Docker hub builds maintained by [
 [4]: https://hub.docker.com/u/woahbase
 
 [5]: https://hub.docker.com/r/woahbase/alpine-base
+[6]: https://hub.docker.com/r/multiarch/qemu-user-static/
+[7]: https://github.com/multiarch/qemu-user-static/releases/
 [8]: https://alpinelinux.org/
 [9]: http://dl-4.alpinelinux.org/alpine/latest-stable/releases/

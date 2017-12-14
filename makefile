@@ -1,8 +1,7 @@
 # {{{ -- meta
 
-HOSTARCH  := $(shell uname -m | sed "s_armv7l_armhf_")#
-QEMUVERS  := v2.9.1-1#
-ARCH      := x86_64# $(shell uname -m | sed "s_armv7l_armhf_")# armhf/x86_64 auto-detect on build
+HOSTARCH  := x86_64# on travis.ci
+ARCH      := $(shell uname -m | sed "s_armv7l_armhf_")# armhf/x86_64 auto-detect on build and run
 OPSYS     := alpine
 SHCOMMAND := /bin/bash
 SVCNAME   := base
@@ -37,11 +36,11 @@ all : run
 
 build : fetch
 	echo "Building for $(ARCH) from $(HOSTARCH)";
-	if [ "$(ARCH)" = "armhf" ]; then make regbinfmt fetchqemu; fi;
+	if [ "$(ARCH)" != "$(HOSTARCH)" ]; then make regbinfmt fetchqemu; fi;
 	docker build $(BUILDFLAGS) $(CACHEFLAGS) $(PROXYFLAGS) .
 
 clean :
-	[[ -d $(CURDIR)/data ]] && rm -rf $(CURDIR)/data || true;
+	if [ -d $(CURDIR)/data ]; then rm -rf $(CURDIR)/data; fi;
 	docker images | awk '(NR>1) && ($$2!~/none/) {print $$1":"$$2}' | grep $(DOCKEREPO) | xargs -n1 docker rmi
 
 logs :
@@ -89,9 +88,10 @@ fetch :
 
 fetchqemu :
 	mkdir -p data && \
-	QEMU_ARCH="$$(echo $(ARCH) | sed 's_armhf_arm_')" \
+	QEMUARCH="$$(echo $(ARCH) | sed 's_armhf_arm_')" \
+	QEMUVERS="$$(curl -SL https://api.github.com/repos/multiarch/qemu-user-static/releases/latest | awk '/tag_name/{print $4;exit}' FS='[""]')" \
 	&& curl \
-		-o ./data/$(HOSTARCH)_qemu-$${QEMU_ARCH}-static.tar.gz -SL https://github.com/multiarch/qemu-user-static/releases/download/${QEMUVERS}/$(HOSTARCH)_qemu-$${QEMU_ARCH}-static.tar.gz \
-		&& tar xv -C data/ -f ./data/$(HOSTARCH)_qemu-$${QEMU_ARCH}-static.tar.gz;
+		-o ./data/$(HOSTARCH)_qemu-$${QEMUARCH}-static.tar.gz -SL https://github.com/multiarch/qemu-user-static/releases/download/${QEMUVERS}/$(HOSTARCH)_qemu-$${QEMUARCH}-static.tar.gz \
+		&& tar xv -C data/ -f ./data/$(HOSTARCH)_qemu-$${QEMUARCH}-static.tar.gz;
 
 # -- }}}
