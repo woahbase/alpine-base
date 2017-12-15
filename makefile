@@ -8,8 +8,8 @@ SVCNAME   := base
 USERNAME  := woahbase
 VERSION   := 3.7.0
 
-DOCKEREPO := $(USERNAME)/$(OPSYS)-$(SVCNAME)
-IMAGETAG  := $(DOCKEREPO):$(ARCH)
+DOCKEREPO := $(OPSYS)-$(SVCNAME)
+IMAGETAG  := $(USERNAME)/$(DOCKEREPO):$(ARCH)
 
 # -- }}}
 
@@ -41,7 +41,7 @@ build : fetch
 
 clean :
 	if [ -d $(CURDIR)/data ]; then rm -rf $(CURDIR)/data; fi;
-	docker images | awk '(NR>1) && ($$2!~/none/) {print $$1":"$$2}' | grep $(DOCKEREPO) | xargs -n1 docker rmi
+	docker images | awk '(NR>1) && ($$2!~/none/) {print $$1":"$$2}' | grep $(USERNAME)/$(DOCKEREPO) | xargs -n1 docker rmi
 
 logs :
 	docker logs -f docker_$(SVCNAME)

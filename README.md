@@ -122,8 +122,11 @@ Otherwise to locally build the image for your system.
 # fetches minirootfs inside ./data/
 # sets up binfmt if not x86_64
 docker build --rm --force-rm \
+  --no-cache=true --pull \
+  -f ./Dockerfile_x86_64 \
   -t woahbase/alpine-base:x86_64 \
-  --no-cache=true .
+  --build-arg BUILD_DATE=2017-12-15T19:42:28Z \
+  --build-arg VCS_REF=$(shell git rev-parse --short HEAD)
 
 # make ARCH=x86_64 test
 docker run --rm -it \
