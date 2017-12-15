@@ -16,8 +16,12 @@ IMAGETAG  := $(USERNAME)/$(DOCKEREPO):$(ARCH)
 # {{{ -- flags
 
 BUILDFLAGS := --rm --force-rm -f $(CURDIR)/Dockerfile_$(ARCH) -t $(IMAGETAG) \
-	--build-arg VCS_REF=$(shell git rev-parse --short HEAD) \
-	--build-arg BUILD_DATE=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
+	--label org.label-schema.build-date=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
+	--label org.label-schema.name=$(DOCKEREPO) \
+	--label org.label-schema.schema-version="1.0" \
+	--label org.label-schema.vcs-ref=$(shell git rev-parse --short HEAD) \
+	--label org.label-schema.vcs-url="https://github.com/$(USERNAME)/$(DOCKEREPO)" \
+	--label org.label-schema.vendor=$(USERNAME)
 
 CACHEFLAGS := --no-cache=true --pull
 MOUNTFLAGS := #
@@ -71,7 +75,7 @@ stop :
 	docker stop -t 2 docker_$(SVCNAME)
 
 test :
-	docker run --rm -it $(NAMEFLAGS) $(RUNFLAGS) $(PORTFLAGS) $(MOUNTFLAGS) $(OTHERFLAGS) $(IMAGETAG) bash --version
+	docker run --rm -it $(NAMEFLAGS) $(RUNFLAGS) $(PORTFLAGS) $(MOUNTFLAGS) $(OTHERFLAGS) $(IMAGETAG) sh -ec 'bash --version'
 
 # -- }}}
 
