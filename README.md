@@ -11,15 +11,15 @@
 
 ---
 
-This [image][5] serves as the base rootfs container for [Alpine Linux][8].
-Built from scratch using the minirootfs image from [here][9].
+This [image][8] serves as the base rootfs container for [Alpine Linux][9].
+Built from scratch using the minirootfs image from [here][10].
 
 The image is tagged respectively for 2 architectures,
 * **armhf**
 * **x86_64**
 
 **armhf** builds have embedded binfmt_misc support and contain the
-[qemu-user-static][7] binary that allows for running it also inside
+[qemu-user-static][5] binary that allows for running it also inside
 an x64 environment that has it.
 
 ---
@@ -40,7 +40,7 @@ docker pull woahbase/alpine-base:x86_64
 ---
 
 If you want to run images for other architectures, you will need
-to have binfmt support configured for your machine. [**multiarch**][6],
+to have binfmt support configured for your machine. [**multiarch**][4],
 has made it easy for us containing that into a docker container.
 
 ```
@@ -96,7 +96,7 @@ build the image yourself for your own system, and can push after.
 #### Setup
 ---
 
-Before you clone the repo, you must have [Git][1], [GNU make][2],
+Before you clone the [repo][7], you must have [Git][1], [GNU make][2],
 and [Docker][3] setup on the machine.
 
 ```
@@ -121,12 +121,10 @@ Otherwise to locally build the image for your system.
 # make ARCH=x86_64 build
 # fetches minirootfs inside ./data/
 # sets up binfmt if not x86_64
-docker build --rm --force-rm \
+docker build --rm --compress --force-rm \
   --no-cache=true --pull \
   -f ./Dockerfile_x86_64 \
-  -t woahbase/alpine-base:x86_64 \
-  --build-arg BUILD_DATE=2017-12-15T19:42:28Z \
-  --build-arg VCS_REF=$(shell git rev-parse --short HEAD)
+  -t woahbase/alpine-base:x86_64
 
 # make ARCH=x86_64 test
 docker run --rm -it \
@@ -143,15 +141,17 @@ docker push woahbase/alpine-base:x86_64
 ## Maintenance
 ---
 
-Built daily at Travis.CI (armhf / x64 builds). Docker hub builds maintained by [woahbase][4].
+Built daily at Travis.CI (armhf / x64 builds). Docker hub builds maintained by [woahbase][6].
 
 [1]: https://git-scm.com
 [2]: https://www.gnu.org/software/make/
 [3]: https://www.docker.com
-[4]: https://hub.docker.com/u/woahbase
+[4]: https://hub.docker.com/r/multiarch/qemu-user-static/
+[5]: https://github.com/multiarch/qemu-user-static/releases/
+[6]: https://hub.docker.com/u/woahbase
 
-[5]: https://hub.docker.com/r/woahbase/alpine-base
-[6]: https://hub.docker.com/r/multiarch/qemu-user-static/
-[7]: https://github.com/multiarch/qemu-user-static/releases/
-[8]: https://alpinelinux.org/
-[9]: http://dl-4.alpinelinux.org/alpine/latest-stable/releases/
+[7]: https://github.com/woahbase/alpine-base
+[8]: https://hub.docker.com/r/woahbase/alpine-base
+
+[9]: https://alpinelinux.org/
+[10]: http://dl-4.alpinelinux.org/alpine/latest-stable/releases/
