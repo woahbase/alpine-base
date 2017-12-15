@@ -15,7 +15,7 @@ IMAGETAG  := $(USERNAME)/$(DOCKEREPO):$(ARCH)
 
 # {{{ -- flags
 
-BUILDFLAGS := --rm --force-rm -f $(CURDIR)/Dockerfile_$(ARCH) -t $(IMAGETAG) \
+BUILDFLAGS := --rm --force-rm --compress -f $(CURDIR)/Dockerfile_$(ARCH) -t $(IMAGETAG) \
 	--label org.label-schema.build-date=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
 	--label org.label-schema.name=$(DOCKEREPO) \
 	--label org.label-schema.schema-version="1.0" \
