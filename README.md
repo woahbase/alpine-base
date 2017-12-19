@@ -55,7 +55,8 @@ architecture, e.g for an x86_64 machine..
 # make
 docker run --rm -it \
   --name docker_base --hostname base \
-  woahbase/alpine-base:x86_64
+  woahbase/alpine-base:x86_64 \
+  bash
 
 # make stop
 docker stop -t 2 docker_base
