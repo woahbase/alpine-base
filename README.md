@@ -135,12 +135,13 @@ for other architectures.]
 
 ```
 # make ARCH=x86_64 build
-# fetches minirootfs inside ./data/
-# sets up binfmt if not x86_64
+# make fetch # fetches minirootfs inside ./data/
+# make regbinfmt # sets up binfmt if not x86_64
 docker build --rm --compress --force-rm \
   --no-cache=true --pull \
   -f ./Dockerfile_x86_64 \
-  -t woahbase/alpine-base:x86_64
+  -t woahbase/alpine-base:x86_64 \
+  .
 ```
 
 To check if its working..
