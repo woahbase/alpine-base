@@ -2,7 +2,6 @@
 
 ## [Alpine-Base][234]
 #### Container for Alpine Linux Base Builds
-
 ---
 
 This [image][233] serves as the base rootfs container for [Alpine Linux][131].
@@ -26,7 +25,6 @@ Docker Hub.
 ```
 # make pull
 docker pull woahbase/alpine-base:x86_64
-
 ```
 
 ---
@@ -40,7 +38,6 @@ has made it easy for us containing that into a docker container.
 ```
 # make regbinfmt
 docker run --rm --privileged multiarch/qemu-user-static:register --reset
-
 ```
 
 Without the above, you can still run the image that is made for your
@@ -53,8 +50,7 @@ Running `make` gets a shell.
 docker run --rm -it \
   --name docker_base --hostname base \
   woahbase/alpine-base:x86_64 \
-  bash
-
+  /bin/bash
 ```
 
 Stop the container with a timeout, (defaults to 2 seconds)
@@ -62,7 +58,6 @@ Stop the container with a timeout, (defaults to 2 seconds)
 ```
 # make stop
 docker stop -t 2 docker_base
-
 ```
 
 Removes the container, (always better to stop it first and `-f`
@@ -71,7 +66,6 @@ only when needed most)
 ```
 # make rm
 docker rm -f docker_base
-
 ```
 
 Restart the container with
@@ -79,7 +73,6 @@ Restart the container with
 ```
 # make restart
 docker restart docker_base
-
 ```
 
 ---
@@ -91,7 +84,6 @@ Get a shell inside a already running container,
 ```
 # make shell
 docker exec -it docker_base /bin/bash
-
 ```
 
 set user or login as root,
@@ -125,7 +117,6 @@ and [Docker][103] setup on the machine.
 ```
 git clone https://github.com/woahbase/alpine-base
 cd alpine-base
-
 ```
 You can always skip installing **make** but you will have to
 type the whole docker commands then instead of using the sweet
@@ -150,7 +141,6 @@ docker build --rm --compress --force-rm \
   --no-cache=true --pull \
   -f ./Dockerfile_x86_64 \
   -t woahbase/alpine-base:x86_64
-
 ```
 
 To check if its working..
@@ -160,8 +150,7 @@ To check if its working..
 docker run --rm -it \
   --name docker_base --hostname base \
   woahbase/alpine-base:x86_64 \
-  bash --version
-
+  sh -ec 'bash --version'
 ```
 
 And finally, if you have push access,
@@ -169,7 +158,6 @@ And finally, if you have push access,
 ```
 # make ARCH=x86_64 push
 docker push woahbase/alpine-base:x86_64
-
 ```
 
 ---
