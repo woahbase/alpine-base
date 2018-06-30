@@ -1,12 +1,12 @@
 # {{{ -- meta
 
-HOSTARCH  := x86_64# on travis.ci
+HOSTARCH  := $(shell uname -m | sed "s_armv7l_armhf_")# x86_64# on travis.ci
 ARCH      := $(shell uname -m | sed "s_armv7l_armhf_")# armhf/x86_64 auto-detect on build and run
 OPSYS     := alpine
 SHCOMMAND := /bin/bash
 SVCNAME   := base
 USERNAME  := woahbase
-VERSION   := 3.7.0
+VERSION   := 3.8.0
 
 DOCKEREPO := $(OPSYS)-$(SVCNAME)
 IMAGETAG  := $(USERNAME)/$(DOCKEREPO):$(ARCH)
@@ -17,7 +17,9 @@ CNTNAME   := $(SVCNAME) # name for container name : docker_name, hostname : name
 
 # {{{ -- flags
 
-BUILDFLAGS := --rm --force-rm --compress -f $(CURDIR)/Dockerfile_$(ARCH) -t $(IMAGETAG) \
+BUILDFLAGS := --rm --force-rm --compress \
+	-f $(CURDIR)/Dockerfile_$(ARCH) \
+	-t $(IMAGETAG) \
 	--label org.label-schema.build-date=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
 	--label org.label-schema.name=$(DOCKEREPO) \
 	--label org.label-schema.schema-version="1.0" \
@@ -25,14 +27,16 @@ BUILDFLAGS := --rm --force-rm --compress -f $(CURDIR)/Dockerfile_$(ARCH) -t $(IM
 	--label org.label-schema.usage="https://woahbase.online/\#/images/$(DOCKEREPO)" \
 	--label org.label-schema.vcs-ref=$(shell git rev-parse --short HEAD) \
 	--label org.label-schema.vcs-url="https://github.com/$(USERNAME)/$(DOCKEREPO)" \
-	--label org.label-schema.vendor=$(USERNAME)
+	--label org.label-schema.vendor=$(USERNAME) \
+	--build-arg http_proxy=$(http_proxy) \
+	--build-arg https_proxy=$(https_proxy) \
+	--build-arg no_proxy=$(no_proxy)
 
 CACHEFLAGS := --no-cache=true --pull
 MOUNTFLAGS := #
 NAMEFLAGS  := --name docker_$(CNTNAME) --hostname $(CNTNAME)
 OTHERFLAGS := # -v /etc/hosts:/etc/hosts:ro -v /etc/localtime:/etc/localtime:ro -e TZ=Asia/Kolkata
 PORTFLAGS  := #
-PROXYFLAGS := --build-arg http_proxy=$(http_proxy) --build-arg https_proxy=$(https_proxy) --build-arg no_proxy=$(no_proxy)
 
 RUNFLAGS   := -c 64 -m 32m # -e PGID=$(shell id -g) -e PUID=$(shell id -u)
 
@@ -40,12 +44,12 @@ RUNFLAGS   := -c 64 -m 32m # -e PGID=$(shell id -g) -e PUID=$(shell id -u)
 
 # {{{ -- docker targets
 
-all : run
+all : shell
 
 build : fetch
 	echo "Building for $(ARCH) from $(HOSTARCH)";
 	if [ "$(ARCH)" != "$(HOSTARCH)" ]; then make regbinfmt fetchqemu; fi;
-	docker build $(BUILDFLAGS) $(CACHEFLAGS) $(PROXYFLAGS) .
+	docker build $(BUILDFLAGS) $(CACHEFLAGS) .
 
 clean :
 	if [ -d $(CURDIR)/data ]; then rm -rf $(CURDIR)/data; fi;
@@ -72,20 +76,20 @@ restart :
 rm : stop
 	docker rm -f docker_$(CNTNAME)
 
-run :
+shell :
 	docker run --rm -it $(NAMEFLAGS) $(RUNFLAGS) $(PORTFLAGS) $(MOUNTFLAGS) $(OTHERFLAGS) $(IMAGETAG) $(SHCOMMAND)
 
-rshell :
+rdebug :
 	docker exec -u root -it docker_$(CNTNAME) $(SHCOMMAND)
 
-shell :
+debug :
 	docker exec -it docker_$(CNTNAME) $(SHCOMMAND)
 
 stop :
 	docker stop -t 2 docker_$(CNTNAME)
 
 test :
-	docker run --rm -it $(NAMEFLAGS) $(RUNFLAGS) $(PORTFLAGS) $(MOUNTFLAGS) $(OTHERFLAGS) $(IMAGETAG) sh -ec 'bash --version'
+	docker run --rm -it $(NAMEFLAGS) $(RUNFLAGS) $(PORTFLAGS) $(MOUNTFLAGS) $(OTHERFLAGS) $(IMAGETAG) sh -ec 'uname -a; bash --version'
 
 # -- }}}
 
@@ -106,7 +110,8 @@ fetchqemu :
 	&& QEMUVERS="$$(curl -SL https://api.github.com/repos/multiarch/qemu-user-static/releases/latest | awk '/tag_name/{print $$4;exit}' FS='[""]')" \
 	&& echo "Using qemu-user-static version: "$${QEMUVERS} \
 	&& curl \
-		-o ./data/$(HOSTARCH)_qemu-$${QEMUARCH}-static.tar.gz -SL https://github.com/multiarch/qemu-user-static/releases/download/$${QEMUVERS}/$(HOSTARCH)_qemu-$${QEMUARCH}-static.tar.gz \
-		&& tar xv -C data/ -f ./data/$(HOSTARCH)_qemu-$${QEMUARCH}-static.tar.gz;
+		-o ./data/$(HOSTARCH)_qemu-$${QEMUARCH}-static.tar.gz \
+		-SL https://github.com/multiarch/qemu-user-static/releases/download/$${QEMUVERS}/$(HOSTARCH)_qemu-$${QEMUARCH}-static.tar.gz \
+	&& tar xv -C data/ -f ./data/$(HOSTARCH)_qemu-$${QEMUARCH}-static.tar.gz;
 
 # -- }}}
