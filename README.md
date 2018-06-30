@@ -47,6 +47,8 @@ Running `make` gets a shell.
 
 ```
 # make
+# or
+# make shell
 docker run --rm -it \
   --name docker_base --hostname base \
   woahbase/alpine-base:x86_64 \
@@ -82,14 +84,14 @@ docker restart docker_base
 Get a shell inside a already running container,
 
 ```
-# make shell
+# make debug
 docker exec -it docker_base /bin/bash
 ```
 
 set user or login as root,
 
 ```
-# make rshell
+# make rdebug
 docker exec -u root -it docker_base /bin/bash
 ```
 

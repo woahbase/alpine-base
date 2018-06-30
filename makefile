@@ -20,6 +20,7 @@ CNTNAME   := $(SVCNAME) # name for container name : docker_name, hostname : name
 BUILDFLAGS := --rm --force-rm --compress \
 	-f $(CURDIR)/Dockerfile_$(ARCH) \
 	-t $(IMAGETAG) \
+	--label online.woahbase.source-image=scratch \
 	--label org.label-schema.build-date=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
 	--label org.label-schema.name=$(DOCKEREPO) \
 	--label org.label-schema.schema-version="1.0" \
