@@ -6,7 +6,7 @@ OPSYS     := alpine
 SHCOMMAND := /bin/bash
 SVCNAME   := base
 USERNAME  := woahbase
-VERSION   := 3.8.0
+VERSION   := 3.8.1
 
 DOCKEREPO := $(OPSYS)-$(SVCNAME)
 IMAGETAG  := $(USERNAME)/$(DOCKEREPO):$(ARCH)
@@ -45,7 +45,7 @@ RUNFLAGS   := -c 64 -m 32m # -e PGID=$(shell id -g) -e PUID=$(shell id -u)
 
 # {{{ -- docker targets
 
-all : shell
+all : run
 
 build : fetch
 	echo "Building for $(ARCH) from $(HOSTARCH)";
@@ -74,8 +74,10 @@ push :
 restart :
 	docker ps -a | grep 'docker_$(CNTNAME)' -q && docker restart docker_$(CNTNAME) || echo "Service not running.";
 
-rm : stop
+rm : 
 	docker rm -f docker_$(CNTNAME)
+
+run : shell
 
 shell :
 	docker run --rm -it $(NAMEFLAGS) $(RUNFLAGS) $(PORTFLAGS) $(MOUNTFLAGS) $(OTHERFLAGS) $(IMAGETAG) $(SHCOMMAND)
