@@ -6,7 +6,7 @@ OPSYS     := alpine
 SHCOMMAND := /bin/bash
 SVCNAME   := base
 USERNAME  := woahbase
-VERSION   := 3.8.1
+VERSION   := 3.9.0
 
 DOCKEREPO := $(OPSYS)-$(SVCNAME)
 IMAGETAG  := $(USERNAME)/$(DOCKEREPO):$(ARCH)
