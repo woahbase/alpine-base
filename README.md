@@ -1,4 +1,4 @@
-[![build status][251]][232] [![commit][255]][231] [![version:x86_64][256]][235] [![size:x86_64][257]][235] [![version:armhf][258]][236] [![size:armhf][259]][236]
+[![build status][251]][232] [![commit][255]][231] [![version:x86_64][256]][235] [![size:x86_64][257]][235] [![version:armhf][258]][236] [![size:armhf][259]][236] [![version:armv7l][260]][237] [![size:armv7l][261]][237] [![version:aarch64][262]][238] [![size:aarch64][263]][238]
 
 ## [Alpine-Base][234]
 #### Container for Alpine Linux Base Builds
@@ -187,7 +187,7 @@ Maintained by [WOAHBase][204].
 [109]: https://microbadger.com/
 
 [131]: https://alpinelinux.org/
-[132]: http://dl-4.alpinelinux.org/alpine/latest-stable/releases/
+[132]: http://dl-4.alpinelinux.org/alpine/
 
 [201]: https://github.com/woahbase
 [202]: https://travis-ci.org/woahbase/
@@ -200,6 +200,8 @@ Maintained by [WOAHBase][204].
 [234]: https://woahbase.online/#/images/alpine-base
 [235]: https://microbadger.com/images/woahbase/alpine-base:x86_64
 [236]: https://microbadger.com/images/woahbase/alpine-base:armhf
+[237]: https://microbadger.com/images/woahbase/alpine-base:armv7l
+[238]: https://microbadger.com/images/woahbase/alpine-base:aarch64
 
 [251]: https://travis-ci.org/woahbase/alpine-base.svg?branch=master
 
@@ -210,3 +212,9 @@ Maintained by [WOAHBase][204].
 
 [258]: https://images.microbadger.com/badges/version/woahbase/alpine-base:armhf.svg
 [259]: https://images.microbadger.com/badges/image/woahbase/alpine-base:armhf.svg
+
+[260]: https://images.microbadger.com/badges/version/woahbase/alpine-base:armv7l.svg
+[261]: https://images.microbadger.com/badges/image/woahbase/alpine-base:armv7l.svg
+
+[262]: https://images.microbadger.com/badges/version/woahbase/alpine-base:aarch64.svg
+[263]: https://images.microbadger.com/badges/image/woahbase/alpine-base:aarch64.svg
