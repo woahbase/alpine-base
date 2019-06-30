@@ -7,15 +7,18 @@
 This [image][233] serves as the base rootfs container for [Alpine Linux][131].
 Built from scratch using the minirootfs image from [here][132].
 
-Current minirootfs version: `3.9.0`
+Current minirootfs version: `3.9.4`.  
+[ Older versions can be found in ARCH_VERSION tags e.g ...:x86_64_3.9.4 ]
 
 The image is tagged respectively for the following architectures,
 * **armhf**
+* **armv7l**
+* **aarch64**
 * **x86_64** ( retagged as the `latest` )
 
-**armhf** builds have embedded binfmt_misc support and contain the
+**non-x86_64** builds have embedded binfmt_misc support and contain the
 [qemu-user-static][105] binary that allows for running it also inside
-an x64 environment that has it.
+an x86_64 environment that has it.
 
 ---
 #### Get the Image

@@ -3,7 +3,7 @@ ARG DOCKERSRC=frommakefile
 FROM ${DOCKERSRC}
 #
 ADD data/rootfs.tar /
-ADD data/qemu-arm-static /usr/bin/qemu-arm-static
+ADD data/qemu-aarch64-static /usr/bin/qemu-aarch64-static
 RUN apk add --no-cache --purge -uU bash && \
     rm -rf /var/cache/apk/* /tmp/*
 #
