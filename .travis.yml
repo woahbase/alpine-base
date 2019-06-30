@@ -1,8 +1,9 @@
 os: linux
 dist: xenial
-cache: false
-services: docker
+language: bash
 sudo: required
+services: docker
+cache: false
 env:
   matrix:
     - ARCH=x86_64
