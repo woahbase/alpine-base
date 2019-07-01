@@ -187,7 +187,7 @@ Maintained by [WOAHBase][204].
 [109]: https://microbadger.com/
 
 [131]: https://alpinelinux.org/
-[132]: http://dl-4.alpinelinux.org/alpine/
+[132]: https://nl.alpinelinux.org/alpine/
 
 [201]: https://github.com/woahbase
 [202]: https://travis-ci.org/woahbase/
