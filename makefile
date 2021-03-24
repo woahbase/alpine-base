@@ -6,7 +6,7 @@ OPSYS     := alpine
 SHCOMMAND := /bin/bash
 SVCNAME   := base
 USERNAME  := woahbase
-OSVERSION := 3.10.1
+OSVERSION := 3.12.4
 
 DOCKERSRC := scratch
 DOCKEREPO := $(OPSYS)-$(SVCNAME)
