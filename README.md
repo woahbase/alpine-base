@@ -7,7 +7,7 @@
 This [image][233] serves as the base rootfs container for [Alpine Linux][131].
 Built from scratch using the minirootfs image from [here][132].
 
-Current minirootfs version: `3.10.1`.  
+Current minirootfs version: `3.12.4`.  
 [ Older versions can be found in ARCH_VERSION tags e.g ...:x86_64_3.9.4, ...:x86_64_3.10.0 ]
 
 The image is tagged respectively for the following architectures,
