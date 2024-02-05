@@ -1,10 +1,13 @@
-ARG DOCKERSRC=frommakefile
+# syntax=docker/dockerfile:1
 #
-FROM ${DOCKERSRC}
+ARG IMAGEBASE=frommakefile
 #
-ADD data/rootfs.tar /
+FROM ${IMAGEBASE}
+#
+ADD data/rootfs-armhf.tar /
 ADD data/qemu-arm-static /usr/bin/qemu-arm-static
-RUN apk add --no-cache --purge -uU bash && \
-    rm -rf /var/cache/apk/* /tmp/*
+RUN apk add --no-cache --purge -uU bash \
+    && rm -rf /var/cache/apk/* /tmp/*
 #
-# CMD ["/bin/bash"]
+# CMD set on run/test or in child images
+ENTRYPOINT ["/bin/bash"]
