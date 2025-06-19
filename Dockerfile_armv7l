@@ -5,7 +5,7 @@ ARG IMAGEBASE=frommakefile
 FROM ${IMAGEBASE}
 #
 ADD data/rootfs-armv7.tar /
-ADD data/qemu-armeb-static /usr/bin/qemu-armeb-static
+# ADD data/qemu-armeb-static /usr/bin/qemu-armeb-static
 RUN apk add --no-cache --purge -uU bash \
     && rm -rf /var/cache/apk/* /tmp/*
 #

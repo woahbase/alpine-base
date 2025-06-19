@@ -5,7 +5,9 @@ ARG IMAGEBASE=frommakefile
 FROM ${IMAGEBASE}
 #
 ADD data/rootfs-x86_64.tar /
-RUN apk add --no-cache --purge -uU bash \
+RUN \
+    apk add --no-cache --purge -uU \
+        bash \
     && rm -rf /var/cache/apk/* /tmp/*
 #
 # CMD set on run/test or in child images

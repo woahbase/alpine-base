@@ -4,8 +4,8 @@ ARG IMAGEBASE=frommakefile
 #
 FROM ${IMAGEBASE}
 #
-ADD data/rootfs-armhf.tar /
-# ADD data/qemu-arm-static /usr/bin/qemu-arm-static
+ADD data/rootfs-s390x.tar /
+# ADD data/qemu-s390x-static /usr/bin/qemu-s390x-static
 RUN \
     apk add --no-cache --purge -uU \
         bash \
