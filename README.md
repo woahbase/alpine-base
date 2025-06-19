@@ -56,10 +56,10 @@ Maintained (or sometimes a lack thereof?) by [WOAHBase][110].
 [208]: https://img.shields.io/docker/image-size/woahbase/alpine-base/aarch64?label=aarch64&color=brightgreen&style=flat-square&logo=docker
 [209]: https://img.shields.io/docker/image-size/woahbase/alpine-base/armv7l?label=armv7l&color=brightgreen&style=flat-square&logo=docker
 [210]: https://img.shields.io/docker/image-size/woahbase/alpine-base/armhf?label=armhf&color=brightgreen&style=flat-square&logo=docker
-[211]: https://img.shields.io/docker/image-size/woahbase/alpine-base/i386?label=armhf&color=brightgreen&style=flat-square&logo=docker
-[212]: https://img.shields.io/docker/image-size/woahbase/alpine-base/loong64?label=armhf&color=brightgreen&style=flat-square&logo=docker
-[213]: https://img.shields.io/docker/image-size/woahbase/alpine-base/ppc64le?label=armhf&color=brightgreen&style=flat-square&logo=docker
-[214]: https://img.shields.io/docker/image-size/woahbase/alpine-base/riscv64?label=armhf&color=brightgreen&style=flat-square&logo=docker
-[215]: https://img.shields.io/docker/image-size/woahbase/alpine-base/s390x?label=armhf&color=brightgreen&style=flat-square&logo=docker
+[211]: https://img.shields.io/docker/image-size/woahbase/alpine-base/i386?label=i386&color=brightgreen&style=flat-square&logo=docker
+[212]: https://img.shields.io/docker/image-size/woahbase/alpine-base/loong64?label=loong64&color=brightgreen&style=flat-square&logo=docker
+[213]: https://img.shields.io/docker/image-size/woahbase/alpine-base/ppc64le?label=ppc64le&color=brightgreen&style=flat-square&logo=docker
+[214]: https://img.shields.io/docker/image-size/woahbase/alpine-base/riscv64?label=riscv64&color=brightgreen&style=flat-square&logo=docker
+[215]: https://img.shields.io/docker/image-size/woahbase/alpine-base/s390x?label=s390x&color=brightgreen&style=flat-square&logo=docker
 [216]: https://img.shields.io/github/issues/woahbase/alpine-base?color=brightgreen&style=flat-square&logo=github
 [217]: https://img.shields.io/github/issues-pr/woahbase/alpine-base?color=brightgreen&style=flat-square&logo=github
